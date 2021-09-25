@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ParsingProject;
 
 namespace SumProject
 {
@@ -6,7 +6,11 @@ namespace SumProject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ConsoleInterface console = new ConsoleInterface();
+
+            Parsing parsing = new Parsing(console.GetFileContent(args));
+
+            console.OutputResults(parsing.MaxStringNumber, parsing.FalseStringNumbers);
         }
     }
 }
