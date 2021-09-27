@@ -26,7 +26,7 @@ namespace ParsingProject
 
             for (int i = 0; i < strings.Length; i++)
             {
-                if (strings[i].Any(char.IsLetter) || strings[i].Contains(' ') || strings[i].Contains('\t'))
+                if (strings[i].Any(char.IsLetter) || strings[i].Contains('\t'))
                 {
                     falseStringNumbers.Add(i + 1);
                     continue;
