@@ -24,7 +24,7 @@ namespace Task3UnitTestProject
             yield return new object[] { 0, null, "" };
             yield return new object[] { 0, new int[] { 1 }, " " };
             yield return new object[] { 0, new int[] { 1 }, "abcdef" };
-            yield return new object[] { 0, new int[] { 1 }, " 100" };
+            yield return new object[] { 1, new int[] { }, " 100" };
             yield return new object[] { 0, new int[] { 1 }, "100,abcdef" };
             yield return new object[] { 0, new int[] { 1 }, "100.100.100" };
             yield return new object[] { 0, new int[] { 1 }, "100_100" };
@@ -39,7 +39,7 @@ namespace Task3UnitTestProject
             yield return new object[] { 1, new int[] { }, "-100.100" };
             yield return new object[] { 2, new int[] { 1 }, " \n0" };
             yield return new object[] { 2, new int[] { 1 }, "abcdef\n100" };
-            yield return new object[] { 2, new int[] { 1 }, " 100\n100,100" };
+            yield return new object[] { 2, new int[] { }, " 100\n100,100" };
             yield return new object[] { 2, new int[] { 1 }, "100,abcdef\n100.100" };
             yield return new object[] { 2, new int[] { 1 }, "100.100.100\n-100" };
             yield return new object[] { 2, new int[] { 1 }, "100_100\n-100,-100" };

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace ParsingProject
@@ -19,6 +20,11 @@ namespace ParsingProject
 
         private void SearchContent(string content)
         {
+            NumberFormatInfo numberFormatInfo = new NumberFormatInfo()
+            {
+                NumberDecimalSeparator = ".",
+            };
+
             List<int> falseStringNumbers = new List<int>();
             double maxStringValue = Double.MinValue;
 
@@ -26,7 +32,7 @@ namespace ParsingProject
 
             for (int i = 0; i < strings.Length; i++)
             {
-                if (strings[i].Any(char.IsLetter) || strings[i].Contains('\t'))
+                if (strings[i].Any(char.IsLetter))
                 {
                     falseStringNumbers.Add(i + 1);
                     continue;
@@ -37,9 +43,9 @@ namespace ParsingProject
 
                 for (int j = 0; j < segments.Length; j++)
                 {
-                    if (Double.TryParse(segments[j], out double value))
+                    try
                     {
-                        stringValue += value;
+                        stringValue += double.Parse(segments[j], numberFormatInfo);
 
                         if (j == segments.Length - 1)
                         {
@@ -50,7 +56,7 @@ namespace ParsingProject
                             }
                         }
                     }
-                    else
+                    catch
                     {
                         falseStringNumbers.Add(i + 1);
                         break;
