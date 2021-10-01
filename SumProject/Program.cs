@@ -10,7 +10,7 @@ namespace SumProject
 
             Parsing parsing = new Parsing(console.GetFileContent(args));
 
-            console.OutputResults(parsing.MaxStringNumber, parsing.FalseStringNumbers);
+            console.OutputResults(parsing);
         }
     }
 }

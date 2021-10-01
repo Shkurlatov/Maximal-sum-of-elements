@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParsingProject;
+using System;
 using System.IO;
 
 namespace SumProject
@@ -15,13 +16,17 @@ namespace SumProject
             {
                 path = String.Join(' ', args);
 
-                if (IsFileExists(path, Messages.Argument.GetString()))
+                if (IsFileExists(path))
                 {
                     return Content;
                 }
+                else
+                {
+                    Console.WriteLine(Messages.WrongArgsPath.GetString());
+                }
             }
 
-            Console.WriteLine(Messages.Input.GetString());
+            Console.WriteLine(Messages.PathInputRequest.GetString());
 
             while (true)
             {
@@ -31,47 +36,54 @@ namespace SumProject
                 {
                     path = Path.GetFullPath(@"..\..\..\") + "example.txt";
 
-                    if (IsFileExists(path, Messages.Example.GetString()))
+                    if (IsFileExists(path))
                     {
                         return Content;
                     }
-
-                    return String.Empty;
+                    else
+                    {
+                        Console.WriteLine(Messages.ExampleNotFound.GetString());
+                        return String.Empty;
+                    }
                 } 
                 else
                 {
-                    if (IsFileExists(path, Messages.ReInput.GetString()))
+                    if (IsFileExists(path))
                     {
                         return Content;
+                    }
+                    else
+                    {
+                        Console.WriteLine(Messages.WrongInputPath.GetString());
                     }
                 }
             }
         }
 
-        public void OutputResults(int maxStringNumber, int[] falseStringNumbers)
+        public void OutputResults(Parsing parsing)
         {
-            if (falseStringNumbers != null)
+            if (!parsing.IsFileEmpty)
             {
-                if (maxStringNumber > 0)
+                if (parsing.MaxStringNumber > 0)
                 {
-                    Console.WriteLine(String.Format(Messages.MaxSum.GetString(), maxStringNumber));
+                    Console.WriteLine(String.Format(Messages.MaxLineNumber.GetString(), parsing.MaxStringNumber));
                 }
 
-                if (falseStringNumbers.Length > 0)
+                if (parsing.FalseStringNumbers.Length > 0)
                 {
-                    foreach (int number in falseStringNumbers)
+                    foreach (int number in parsing.FalseStringNumbers)
                     {
-                        Console.WriteLine(String.Format(Messages.FalseString.GetString(), number));
+                        Console.WriteLine(String.Format(Messages.FalseLinesNumbers.GetString(), number));
                     }
                 }
             }
             else
             {
-                Console.WriteLine(Messages.Empty.GetString());
+                Console.WriteLine(Messages.FileEmpty.GetString());
             }
         }
 
-        private bool IsFileExists(string path, string message)
+        private bool IsFileExists(string path)
         {
             if (File.Exists(path))
             {
@@ -79,12 +91,8 @@ namespace SumProject
 
                 return true;
             }
-            else
-            {
-                Console.WriteLine(message);
 
-                return false;
-            }
+            return false;
         }
     }
 }
