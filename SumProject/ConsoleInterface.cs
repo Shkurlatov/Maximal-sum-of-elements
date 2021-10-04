@@ -69,7 +69,7 @@ namespace SumProject
                     Console.WriteLine(String.Format(Messages.MaxLineNumber.GetString(), parsing.MaxStringNumber));
                 }
 
-                if (parsing.FalseStringNumbers.Length > 0)
+                if (parsing.FalseStringNumbers.Count > 0)
                 {
                     foreach (int number in parsing.FalseStringNumbers)
                     {

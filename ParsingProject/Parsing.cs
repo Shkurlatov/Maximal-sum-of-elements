@@ -9,13 +9,14 @@ namespace ParsingProject
     {
         public bool IsFileEmpty { get; private set; }
         public int MaxStringNumber { get; private set; }
-        public int[] FalseStringNumbers { get; private set; }
+        public List<int> FalseStringNumbers { get; private set; }
 
         public Parsing(string content)
         {
-            if (content != null && content.Length > 0)
+            if (!String.IsNullOrEmpty(content))
             {
                 IsFileEmpty = false;
+                FalseStringNumbers = new List<int>();
                 SearchContent(content);
             }
             else
@@ -26,7 +27,6 @@ namespace ParsingProject
 
         private void SearchContent(string content)
         {
-            List<int> falseStringNumbers = new List<int>();
             double maxStringValue = Double.MinValue;
             string[] lines = content.Split('\n');
 
@@ -34,7 +34,7 @@ namespace ParsingProject
             {
                 if (lines[i].Any(char.IsLetter))
                 {
-                    falseStringNumbers.Add(i + 1);
+                    FalseStringNumbers.Add(i + 1);
                     continue;
                 }
 
@@ -49,19 +49,17 @@ namespace ParsingProject
                     }
                     else
                     {
-                        falseStringNumbers.Add(i + 1);
+                        FalseStringNumbers.Add(i + 1);
                         break;
                     }
                 }
 
-                if (!falseStringNumbers.Contains(i + 1) && stringValue >= maxStringValue)
+                if (!FalseStringNumbers.Contains(i + 1) && stringValue >= maxStringValue)
                 {
                     maxStringValue = stringValue;
                     MaxStringNumber = i + 1;
                 }
             }
-
-            FalseStringNumbers = falseStringNumbers.ToArray();
         }
     }
 }
