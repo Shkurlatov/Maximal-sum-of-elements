@@ -6,57 +6,56 @@ namespace SumProject
 {
     public class ConsoleInterface
     {
-        private string Content;
+        private string content;
 
         public string GetFileContent(string[] args)
         {
-            string path;
+            string pathFromUser;
 
             if (args.Length > 0)
             {
-                path = String.Join(' ', args);
+                pathFromUser = String.Join(' ', args);
 
-                if (IsFileExists(path))
+                if (IsFileExists(pathFromUser))
                 {
-                    return Content;
+                    return content;
                 }
-                else
-                {
-                    Console.WriteLine(Messages.WrongArgsPath.GetString());
-                }
+
+                Console.WriteLine(Messages.WrongArgsPath.GetString());
             }
 
             Console.WriteLine(Messages.PathInputRequest.GetString());
 
             while (true)
             {
-                path = Console.ReadLine();
+                pathFromUser = Console.ReadLine();
 
-                if (path == "0")
+                if (pathFromUser == "0")
                 {
-                    path = Path.GetFullPath(@"..\..\..\") + "example.txt";
+                    string pathToExample = "example.txt";
 
-                    if (IsFileExists(path))
+                    if (IsFileExists(pathToExample))
                     {
-                        return Content;
+                        return content;
                     }
-                    else
+
+                    pathToExample = Path.GetFullPath(@"..\..\..\") + pathToExample;
+
+                    if (IsFileExists(pathToExample))
                     {
-                        Console.WriteLine(Messages.ExampleNotFound.GetString());
-                        return String.Empty;
+                        return content;
                     }
-                } 
-                else
-                {
-                    if (IsFileExists(path))
-                    {
-                        return Content;
-                    }
-                    else
-                    {
-                        Console.WriteLine(Messages.WrongInputPath.GetString());
-                    }
+
+                    Console.WriteLine(Messages.ExampleNotFound.GetString());
+                    return String.Empty;
                 }
+
+                if (IsFileExists(pathFromUser))
+                {
+                    return content;
+                }
+
+                Console.WriteLine(Messages.WrongInputPath.GetString());
             }
         }
 
@@ -87,7 +86,7 @@ namespace SumProject
         {
             if (File.Exists(path))
             {
-                Content = File.ReadAllText(path);
+                content = File.ReadAllText(path);
 
                 return true;
             }
